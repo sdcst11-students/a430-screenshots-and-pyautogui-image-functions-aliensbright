@@ -19,7 +19,7 @@ when it is a coordinate, you can move the mouse there
 
 location = pyautogui.locateCenterOnScreen('assets/winIcon.png')
 print("locateCenterOnScreen:",location)
-
+pyautogui.moveTo(location)
 """
 locateAllOnScreen :
 finds all the occurrences of the image and creates a list of tuples that are (left,top,width,height)
@@ -29,7 +29,4 @@ mylist = location = pyautogui.locateAllOnScreen('assets/winIcon.png')
 print("locate all found (as generator):",mylist)
 converted = list(mylist)
 print("locate all found (as list):",converted)
-
-
-pyautogui.moveTo(1140,285)
 

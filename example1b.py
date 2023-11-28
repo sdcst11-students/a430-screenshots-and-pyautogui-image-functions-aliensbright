@@ -7,5 +7,6 @@ You can specify how much of a match from 0-100% (0-1.0) you want.
 It does not speed up the search but might allow you to find matches that are sometimes not caught
 """
 
-x = pyautogui.locateCenterOnScreen('assets/winIcon.png',region=(0,800,100,100), confidence=0.9)
+x = pyautogui.locateCenterOnScreen('assets/winIcon.png',region=(1100,250,100,100), confidence=0.9)
 print("found at",x)
+pyautogui.moveTo(x)
