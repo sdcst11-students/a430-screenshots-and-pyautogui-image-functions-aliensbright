@@ -31,5 +31,5 @@ converted = list(mylist)
 print("locate all found (as list):",converted)
 
 
-
+pyautogui.moveTo(1140,285)
 
