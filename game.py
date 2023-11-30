@@ -30,7 +30,6 @@ Use of a variables, including a list type variable must be part of your program.
 '''
 
 #setup: code on the right side of computer and game on the left side. 
-
 # (341,477) (338,474) (338,456) (341,453)
 def setup():
     print('Here is the setup. You must have the program running\non the right side and the game running on the left side.')
@@ -41,15 +40,13 @@ def setup():
             break
 
 def MainTask():#350,465
-    x=350
-    y=465
-    m=0
+    x,y=pyautogui.locateCenterOnScreen('assets/gem.png',region=(250,400,150,150))
+    pyautogui.moveTo(x,y)
     planetCoords=[[x,y-15],[x+9,y-12],[x+12,y-9],[x+15,y],[x+12,y+9],[x+9,y+12],[x,y+15],[x-9,y+12],[x-12,y+9],[x-15,y],[x-12,y-9],[x-9,y-12]]
-    while m!=10:
-        for i in planetCoords:
-            pyautogui.mouseDown()
-            pyautogui.moveTo(i[0],i[1],0.5)
-        m=m+1
-        
+    time.sleep(1)
+    pyautogui.mouseDown()
+    for i in planetCoords:
+        pyautogui.moveTo(i[0],i[1],0.5)
+    
 setup()
 MainTask()
