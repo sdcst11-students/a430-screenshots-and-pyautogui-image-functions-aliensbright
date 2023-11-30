@@ -1,6 +1,7 @@
 #!python3
 import time, pyautogui
 import keyboard
+from pyscreeze import locate
 '''
 Main Task
 Tap/hold the center of the planet repeatedly.
@@ -40,13 +41,26 @@ def setup():
             break
 
 def MainTask():#350,465
-    x,y=pyautogui.locateCenterOnScreen('assets/gem.png',region=(250,400,150,150))
+    x,y=pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7)
     pyautogui.moveTo(x,y)
-    planetCoords=[[x,y-15],[x+9,y-12],[x+12,y-9],[x+15,y],[x+12,y+9],[x+9,y+12],[x,y+15],[x-9,y+12],[x-12,y+9],[x-15,y],[x-12,y-9],[x-9,y-12]]
-    time.sleep(1)
-    pyautogui.mouseDown()
-    for i in planetCoords:
-        pyautogui.moveTo(i[0],i[1],0.5)
+    print(pyautogui.locateCenterOnScreen('assets/collection.png',confidence=0.6))
+    x=x+144
+    y=y+106
+    pyautogui.moveTo(x,y)
+    return x,y
     
-setup()
-MainTask()
+def start(): #ensures you are not on the title screen
+    try:
+        pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/rungame.png'))
+        pyautogui.click(clicks=2,interval=0.5)
+        time.sleep(3)
+    except:
+        try:
+            pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/sleep.png',confidence=0.8))
+            time.sleep(1)
+            pyautogui.click(clicks=2,interval=0.5)
+        except:
+            pass
+
+start()
+x,y = MainTask()
