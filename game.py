@@ -47,9 +47,10 @@ def MainTask():#350,465
     x=x+144
     y=y+106
     pyautogui.moveTo(x,y)
+    pyautogui.mouseDown()
     return x,y
     
-def start(): #ensures you are not on the title screen
+def start(): #gets to the main screen
     try:
         pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/rungame.png'))
         pyautogui.click(clicks=2,interval=0.5)
@@ -57,10 +58,41 @@ def start(): #ensures you are not on the title screen
     except:
         try:
             pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/sleep.png',confidence=0.8))
-            time.sleep(1)
             pyautogui.click(clicks=2,interval=0.5)
+            time.sleep(1)
         except:
             pass
 
+
+def sidetask1(): #goes to the shop on the bottom of the screen.
+    n=True
+    shoplist=['damage','speed','limit','auto']
+    while n==True:
+        for i in shoplist:
+            try:
+                pyautogui.moveTo(pyautogui.locateCenterOnScreen(f'assets/{i}.png',confidence=0.9))
+                mousething()          
+            except:
+                if i=='auto':
+                    n=False
+
+def sidetask3(a,b): #collects gems from the collection tab
+    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7))
+    mousething()
+    for i in range(7):
+        pyautogui.moveTo(a,b)
+        pyautogui.mouseDown()
+        pyautogui.moveTo(a,b)
+
+    
+    
+
+def mousething():
+    pyautogui.mouseDown()
+    pyautogui.mouseUp()
+
 start()
 x,y = MainTask()
+print(x,y)
+sidetask1()
+MainTask()
