@@ -77,12 +77,15 @@ def sidetask1(): #goes to the shop on the bottom of the screen.
                     n=False
 
 def sidetask3(a,b): #collects gems from the collection tab
-    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7))
+    x,y=(pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7))
+    pyautogui.moveTo(x,y-20)
+    mousething()
     mousething()
     for i in range(7):
-        pyautogui.moveTo(a,b)
+        pyautogui.moveTo(a,b+180)
         pyautogui.mouseDown()
-        pyautogui.moveTo(a,b)
+        pyautogui.moveTo(a,b-190)
+        pyautogui.mouseUp()
 
     
     
@@ -93,6 +96,4 @@ def mousething():
 
 start()
 x,y = MainTask()
-print(x,y)
-sidetask1()
-MainTask()
+sidetask3(x,y)
