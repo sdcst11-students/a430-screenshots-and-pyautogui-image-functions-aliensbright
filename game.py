@@ -33,7 +33,7 @@ Use of a variables, including a list type variable must be part of your program.
 #setup: code on the right side of computer and game on the left side. 
 # (341,477) (338,474) (338,456) (341,453)
 def setup():
-    print('Here is the setup. You must have the program running\non the right side and the game running on the left side.')
+    print('Here is the setup. You must have the program running\non half the screen, and the game on the other side left.')
     print('Once you have completed that,\nplease press the "s" key to start!')
     while True:
         if keyboard.is_pressed('s'):
@@ -76,6 +76,18 @@ def sidetask1(): #goes to the shop on the bottom of the screen.
                 if i=='auto':
                     n=False
 
+def sidetask2(): #Go into rebirth tab and use feathers for effects
+    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/rebirth.png',confidence=0.9))
+    pyautogui.click(clicks=2,duration=0.5)
+    x,y= pyautogui.locateCenterOnScreen('assets/rebirthknife.png',confidence=0.9)
+    reCoords=[(x,y),(x+75,y),(x+150,y),(x+225,y),(x,y+100),(x+75,y+100),(x+150,y+100),(x+225,y+100)]
+    for i in reCoords:
+        pyautogui.moveTo(i[0],i[1],0.1)
+        pyautogui.click()
+    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/xmarks.png',confidence=0.9))
+    pyautogui.click(2,duration=0.5)
+
+
 def sidetask3(a,b): #collects gems from the collection tab
     x,y=(pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7))
     pyautogui.moveTo(x,y-20)
@@ -84,14 +96,18 @@ def sidetask3(a,b): #collects gems from the collection tab
     for i in range(4):
         while True:
             try:
-                pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/gems.png',confidence=0.9))
-                pyautogui.click()
+                pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
+                pyautogui.click(clicks=2,duration=0.2)
             except:
                 break
         pyautogui.moveTo(a,b+180)
         pyautogui.mouseDown()
         pyautogui.moveTo(a,b-190,1)
         pyautogui.mouseUp()   
+        time.sleep(1)
+    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/xmarks.png',confidence=0.9))
+    pyautogui.click(2,duration=0.5)
+    
 
 
 def mousething():
@@ -100,4 +116,6 @@ def mousething():
 
 start()
 x,y = MainTask()
-sidetask1()
+#sidetask1()
+#sidetask3(x,y)
+sidetask2()
