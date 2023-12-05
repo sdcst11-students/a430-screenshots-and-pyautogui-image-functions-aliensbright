@@ -40,16 +40,23 @@ def setup():
             print('Thank you, we will now start the game.\nif at any time you would like to exit,\n just type "e"')
             break
 
-def MainTask():#350,465
+def getmidCoords():#returns the planet coords
     x,y=pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7)
-    pyautogui.moveTo(x,y)
-    print(pyautogui.locateCenterOnScreen('assets/collection.png',confidence=0.6))
     x=x+144
     y=y+106
     pyautogui.moveTo(x,y)
-    pyautogui.mouseDown()
     return x,y
-    
+
+def maintask(xcoord,ycoord,timelimit): #pressing down on the middle of the planet
+    startTime=time.time()
+    newtime=0
+    while newtime-startTime<timelimit:
+        pyautogui.moveTo(xcoord,ycoord)
+        pyautogui.mouseDown()
+        time.sleep(1)
+        newtime=time.time()
+
+
 def start(): #gets to the main screen
     try:
         pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/rungame.png'))
@@ -70,43 +77,50 @@ def sidetask1(): #goes to the shop on the bottom of the screen.
     while n==True:
         for i in shoplist:
             try:
-                pyautogui.moveTo(pyautogui.locateCenterOnScreen(f'assets/{i}.png',confidence=0.9))
-                mousething()          
+                pyautogui.moveTo(pyautogui.locateCenterOnScreen(f'assets/{i}.png',confidence=0.8))
+                mousething()
+                mousething()
+                time.sleep(0.5)      
             except:
                 if i=='auto':
                     n=False
 
-def sidetask2(): #Go into rebirth tab and use feathers for effects
-    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/rebirth.png',confidence=0.9))
-    pyautogui.click(clicks=2,duration=0.5)
-    x,y= pyautogui.locateCenterOnScreen('assets/rebirthknife.png',confidence=0.9)
-    reCoords=[(x,y),(x+75,y),(x+150,y),(x+225,y),(x,y+100),(x+75,y+100),(x+150,y+100),(x+225,y+100)]
-    for i in reCoords:
-        pyautogui.moveTo(i[0],i[1],0.1)
-        pyautogui.click()
-    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/xmarks.png',confidence=0.9))
-    pyautogui.click(2,duration=0.5)
+#def sidetask3(): #Go into rebirth tab and use feathers for effects
+#    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/rebirth.png',confidence=0.9))
+#    pyautogui.click(clicks=2,duration=0.5)
+#    x,y= pyautogui.locateCenterOnScreen('assets/rebirthknife.png',confidence=0.9)
+#    reCoords=[(x,y),(x+75,y),(x+150,y),(x+225,y),(x,y+100),(x+75,y+100),(x+150,y+100),(x+225,y+100)]
+#    for i in reCoords:
+#        pyautogui.moveTo(i[0],i[1],0.1)
+#        pyautogui.click()
+#    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/xmarks.png',confidence=0.9))
+#    pyautogui.click(2,duration=0.5)
 
 
-def sidetask3(a,b): #collects gems from the collection tab
+def sidetask2(a,b): #collects gems from the collection tab
     x,y=(pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7))
     pyautogui.moveTo(x,y-20)
     mousething()
-    mousething()
-    for i in range(4):
-        while True:
-            try:
-                pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
-                pyautogui.click(clicks=2,duration=0.2)
-            except:
-                break
-        pyautogui.moveTo(a,b+180)
-        pyautogui.mouseDown()
-        pyautogui.moveTo(a,b-190,1)
-        pyautogui.mouseUp()   
-        time.sleep(1)
-    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/xmarks.png',confidence=0.9))
-    pyautogui.click(2,duration=0.5)
+    #for i in range(21):
+    #        pyautogui.moveTo(a-144,b)
+    #        pyautogui.mouseDown()
+    #        pyautogui.moveTo(a+130,b,.2)
+    #        pyautogui.mouseUp()  
+    #for i in range(17):
+    #    while True:
+    #        try:
+    #            pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
+    #            print(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
+    #            pyautogui.click(clicks=2,duration=0.2)
+    #        except:
+    #            break
+    #    pyautogui.moveTo(a+130,b+20)
+    #    pyautogui.mouseDown()
+    #    pyautogui.moveTo(a-144,b+20,.5)
+    #    pyautogui.mouseUp()   
+    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/book.png',confidence=0.9))
+    print(pyautogui.locateCenterOnScreen('assets/book.png',confidence=0.9))
+    pyautogui.click()
     
 
 
@@ -114,8 +128,15 @@ def mousething():
     pyautogui.mouseDown()
     pyautogui.mouseUp()
 
-start()
-x,y = MainTask()
-#sidetask1()
-#sidetask3(x,y)
-sidetask2()
+
+#sidetask3()
+def main():
+    start()
+    x,y=getmidCoords()
+    while True:
+        for q in range(3):
+            maintask(x,y,30)
+            sidetask1()
+        sidetask2(x,y)
+
+main()
