@@ -1,6 +1,5 @@
 #!python3
 import time, pyautogui
-import keyboard
 from pyscreeze import locate
 '''
 Main Task
@@ -73,16 +72,16 @@ def start(): #gets to the main screen
 
 def sidetask1(): #goes to the shop on the bottom of the screen.
     n=True
-    shoplist=['damage','speed','limit','auto']
+    shoplist,shoplistlength=['damage','speed','limit','auto']
     while n==True:
         for i in shoplist:
             try:
                 pyautogui.moveTo(pyautogui.locateCenterOnScreen(f'assets/{i}.png',confidence=0.8))
-                mousething()
-                mousething()
-                time.sleep(0.5)      
+                mousething()    
             except:
-                if i=='auto':
+                shoplistlength.remove(i)
+                print(len(shoplistlength))
+                if len(shoplistlength)==0:
                     n=False
 
 #def sidetask3(): #Go into rebirth tab and use feathers for effects
@@ -101,26 +100,27 @@ def sidetask2(a,b): #collects gems from the collection tab
     x,y=(pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7))
     pyautogui.moveTo(x,y-20)
     mousething()
-    #for i in range(21):
-    #        pyautogui.moveTo(a-144,b)
-    #        pyautogui.mouseDown()
-    #        pyautogui.moveTo(a+130,b,.2)
-    #        pyautogui.mouseUp()  
-    #for i in range(17):
-    #    while True:
-    #        try:
-    #            pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
-    #            print(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
-    #            pyautogui.click(clicks=2,duration=0.2)
-    #        except:
-    #            break
-    #    pyautogui.moveTo(a+130,b+20)
-    #    pyautogui.mouseDown()
-    #    pyautogui.moveTo(a-144,b+20,.5)
-    #    pyautogui.mouseUp()   
+    for i in range(21):
+            pyautogui.moveTo(a-144,b)
+            pyautogui.mouseDown()
+            pyautogui.moveTo(a+130,b,.2)
+            pyautogui.mouseUp()  
+    for i in range(17):
+        while True:
+            try:
+                pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
+                print(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
+                pyautogui.click(clicks=2,duration=0.2)
+                time.sleep(1)
+            except:
+                break
+        pyautogui.moveTo(a+130,b+20)
+        pyautogui.mouseDown()
+        pyautogui.moveTo(a-144,b+20,.5)
+        pyautogui.mouseUp()   
     pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/book.png',confidence=0.9))
     print(pyautogui.locateCenterOnScreen('assets/book.png',confidence=0.9))
-    pyautogui.click()
+    pyautogui.click(clicks=2)
     
 
 
@@ -138,5 +138,6 @@ def main():
             maintask(x,y,30)
             sidetask1()
         sidetask2(x,y)
+    
 
 main()
