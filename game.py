@@ -1,6 +1,5 @@
 #!python3
 import time, pyautogui
-import keyboard
 from pyscreeze import locate
 '''
 Main Task
@@ -72,6 +71,7 @@ def start(): #gets to the main screen
 
 
 def sidetask1(): #goes to the shop on the bottom of the screen.
+
     shoplist=['damage','speed','limit','auto']
     shoplistlength=shoplist
     n=True
@@ -103,6 +103,7 @@ def sidetask2(a,b): #collects gems from the collection tab
     pyautogui.moveTo(x,y-20)
     mousething()
     for i in range(21):
+
             pyautogui.moveTo(a-144,b+20)
             pyautogui.mouseDown()
             pyautogui.moveTo(a+130,b+20,.25)
@@ -113,6 +114,7 @@ def sidetask2(a,b): #collects gems from the collection tab
                 pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
                 print(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
                 pyautogui.click(clicks=2,duration=0.2)
+
             except:
                 break
         pyautogui.moveTo(a+130,b+40)
@@ -139,7 +141,8 @@ def main():
     while True:
         for q in range(3):
             maintask(x,y,60)
-            #sidetask1()
+            sidetask1()
         sidetask2(x,y)
+    
 
 main()
