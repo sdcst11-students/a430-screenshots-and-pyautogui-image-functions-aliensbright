@@ -31,13 +31,6 @@ Use of a variables, including a list type variable must be part of your program.
 
 #setup: code on the right side of computer and game on the left side. 
 # (341,477) (338,474) (338,456) (341,453)
-def setup():
-    print('Here is the setup. You must have the program running\non half the screen, and the game on the other side left.')
-    print('Once you have completed that,\nplease press the "s" key to start!')
-    while True:
-        if keyboard.is_pressed('s'):
-            print('Thank you, we will now start the game.\nif at any time you would like to exit,\n just type "e"')
-            break
 
 def getmidCoords():#returns the planet coords
     x,y=pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7)
@@ -98,35 +91,28 @@ def sidetask1(): #goes to the shop on the bottom of the screen.
 #    pyautogui.click(2,duration=0.5)
 
 
-def sidetask2(a,b): #collects gems from the collection tab
-    x,y=(pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7))
-    pyautogui.moveTo(x,y-20)
-    mousething()
-    for i in range(21):
-
-            pyautogui.moveTo(a-144,b+20)
-            pyautogui.mouseDown()
-            pyautogui.moveTo(a+130,b+20,.25)
-            pyautogui.mouseUp()  
-    for i in range(17):
-        while True:
-            try:
+def sidetask2(): #collects gems from the collection tab
+    n=True
+    while n==True:
+        x,y=(pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7))
+        pyautogui.moveTo(x,y-20)
+        mousething()
+        time.sleep(2)
+        try:
+            for i in range(6):
+                if i==0:
+                    try:
+                        pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9)
+                    except:
+                        n=False
+                        break
                 pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
-                print(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
                 pyautogui.click(clicks=2,duration=0.2)
+        except:
+            pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/book.png',confidence=0.9))
+            print(pyautogui.locateCenterOnScreen('assets/book.png',confidence=0.9))
+            pyautogui.click()
 
-            except:
-                break
-        pyautogui.moveTo(a+130,b+40)
-        pyautogui.mouseDown()
-        pyautogui.moveTo(a-144,b+40,.5)
-        pyautogui.mouseUp()   
-    try:
-        pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/book.png',confidence=0.9))
-        print(pyautogui.locateCenterOnScreen('assets/book.png',confidence=0.9))
-        pyautogui.click()
-    except:
-        pass
 
 
 def mousething():
@@ -140,9 +126,9 @@ def main():
     x,y=getmidCoords()
     while True:
         for q in range(3):
-            maintask(x,y,60)
+            maintask(x,y,30)
             sidetask1()
-        sidetask2(x,y)
+        sidetask2()
     
 
 main()
