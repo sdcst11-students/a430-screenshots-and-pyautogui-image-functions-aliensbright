@@ -94,10 +94,13 @@ def sidetask1(): #goes to the shop on the bottom of the screen.
 def sidetask2(): #collects gems from the collection tab
     n=True
     while n==True:
-        x,y=(pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7))
-        pyautogui.moveTo(x,y-20)
-        mousething()
-        time.sleep(2)
+        try:
+            x,y=(pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7))
+            pyautogui.moveTo(x,y-20)
+            mousething()
+            time.sleep(1)
+        except:
+            pass
         try:
             for i in range(6):
                 if i==0:
@@ -105,7 +108,6 @@ def sidetask2(): #collects gems from the collection tab
                         pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9)
                     except:
                         n=False
-                        break
                 pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/gems.png',region=(x,y-100,300,500),confidence=0.9))
                 pyautogui.click(clicks=2,duration=0.2)
         except:
@@ -126,7 +128,7 @@ def main():
     x,y=getmidCoords()
     while True:
         for q in range(3):
-            maintask(x,y,30)
+            maintask(x,y,20)
             sidetask1()
         sidetask2()
     
