@@ -79,17 +79,6 @@ def sidetask1(): #goes to the shop on the bottom of the screen.
                 if len(shoplistlength)==0:
                     n=False
 
-#def sidetask3(): #Go into rebirth tab and use feathers for effects
-#    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/rebirth.png',confidence=0.9))
-#    pyautogui.click(clicks=2,duration=0.5)
-#    x,y= pyautogui.locateCenterOnScreen('assets/rebirthknife.png',confidence=0.9)
-#    reCoords=[(x,y),(x+75,y),(x+150,y),(x+225,y),(x,y+100),(x+75,y+100),(x+150,y+100),(x+225,y+100)]
-#    for i in reCoords:
-#        pyautogui.moveTo(i[0],i[1],0.1)
-#        pyautogui.click()
-#    pyautogui.moveTo(pyautogui.locateCenterOnScreen('assets/xmarks.png',confidence=0.9))
-#    pyautogui.click(2,duration=0.5)
-
 
 def sidetask2(): #collects gems from the collection tab
     n=True
@@ -98,7 +87,7 @@ def sidetask2(): #collects gems from the collection tab
             x,y=(pyautogui.locateCenterOnScreen('assets/collection.png', confidence=.7))
             pyautogui.moveTo(x,y-20)
             mousething()
-            time.sleep(1)
+            time.sleep(2)
         except:
             pass
         try:
